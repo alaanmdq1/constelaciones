@@ -1,12 +1,13 @@
 require('dotenv').config()
 const {PORT} = process.env
-const app = require('./app/createExpressApp')
+const app = require('./app/createExpressApp')()
 
 const http = require('http')
-const { connection } = require('./database/util/createDB')
+const { connection } = require('./app/database/util/createDB')
 
-//db connect
+//db conexion
 
-connection()
+const db = connection()
+
 //servidor creado y escuchando
 http.createServer(app).listen(PORT, () => console.log('server ready'))
