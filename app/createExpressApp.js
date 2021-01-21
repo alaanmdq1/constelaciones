@@ -9,7 +9,7 @@ module.exports = () => express()
     .use(bodyParser.urlencoded({extended: true}))
     .use(bodyParser.json())
     .options('*', cors())
-    .use(express.static('/public'))
+    .use(express.static('./public'))
     //aqui va db
     .use(rootRouter)
     .use((error, req, res, next) => {
