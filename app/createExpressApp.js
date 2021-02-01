@@ -10,7 +10,12 @@ module.exports = ({db}) => express()
     .use(bodyParser.json())
     .options('*', cors())
     .use(express.static('./public'))
-    //aqui va db
+    //aqui va db syncronizada con todas las rutas de nuestros endpoints
+    .use((req, res, next) => {
+        req.db = db
+        next()
+    })
+    //rutas
     .use(rootRouter)
     .use((error, req, res, next) => {
     consoel.error(error)

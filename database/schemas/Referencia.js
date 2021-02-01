@@ -1,5 +1,6 @@
 
 const {Schema, model} = require('mongoose')
+const paciente = require ('./Paciente')
 
 const referenciaSchema = new Schema({
     nombre: {
@@ -11,7 +12,7 @@ const referenciaSchema = new Schema({
         required: true
     },
     paciente: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         ref: 'Paciente'
     }
 }, {
