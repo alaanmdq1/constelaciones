@@ -1,7 +1,7 @@
 const {Router} = require('express')
 const {referenciaSchema} = require('../../../../../../database/schemas/Referencia')
 
-module.exports = Router().post('/rest/v1/paciente/:id/referencia', async (req, res) => {
+module.exports = Router().post('/rest/v1/paciente/id/:id/referencia', async (req, res) => {
     const {id} = req.params
    
     const {referencia} = req.body
@@ -12,6 +12,6 @@ module.exports = Router().post('/rest/v1/paciente/:id/referencia', async (req, r
         paciente: paciente
     })
     const result = await referenciaPaciente.save()
-    res.end(`referencia del paciente ${id} posteada, ${db.Referencia}` )
+    res.status(201).end(`referencia del paciente ${id} posteada, ${db.Referencia}` )
 
 })

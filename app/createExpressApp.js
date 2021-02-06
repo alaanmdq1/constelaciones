@@ -10,6 +10,7 @@ module.exports = ({db}) => express()
     .use(bodyParser.json())
     .options('*', cors())
     .use(express.static('./public'))
+    .use(express.json())
     //aqui va db syncronizada con todas las rutas de nuestros endpoints
     .use((req, res, next) => {
         req.db = db

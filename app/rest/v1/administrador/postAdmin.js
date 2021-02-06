@@ -13,5 +13,5 @@ module.exports = Router().post('/rest/v1/:administrador', async (req, res) => {
         password: password
     })
     const result = await usuarioAdmin.save()
-    res.end(`administrador ${administrador} registrado, ${db.Administrador}` )
+    res.status(201).end(`administrador ${administrador} registrado, ${db.Administrador}` )
 })
