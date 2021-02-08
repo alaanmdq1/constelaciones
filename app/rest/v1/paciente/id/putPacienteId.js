@@ -1,5 +1,5 @@
 const {Router} = require('express')
-const {pacienteSchema} = require('../../../../../database/schemas/Paciente')
+const Paciente = require('../../../../../database/schemas/Paciente')
 const {check, validationResult} = require('express-validator')
 
 module.exports = Router().put('/rest/v1/paciente/id/:id', [
@@ -14,7 +14,7 @@ module.exports = Router().put('/rest/v1/paciente/id/:id', [
         if (!errors.isEmpty()){
             return res.status(422).json({errors: errors.array()})
         }
-        const paciente = pacienteSchema.find(paciente => Paciente.id === parseInt(req.params.id)) 
+        const paciente = await Paciente.findById(paciente => Paciente.id === parseInt(req.params.id)) 
         if(!paciente){
            return res.status(404).send('El paciente con ese ID no se encuentra en la Base de Datos')
         }

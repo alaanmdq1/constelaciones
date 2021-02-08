@@ -1,5 +1,5 @@
 const {Router} = require('express')
-const {adminSchema} = require('../../../../database/schemas/Administrador')
+const Admin = require('../../../../database/schemas/Administrador')
 const {check, validationResult} = require('express-validator')
 
 //creando administrador
@@ -19,7 +19,7 @@ module.exports = Router().post('/rest/v1/:administrador',[
    
         const {password} = req.body
         const db = req.db
-        const usuarioAdmin = new adminSchema ({
+        const usuarioAdmin = new Admin ({
         nombre: nombre,
         apellido: apellido,
         email: email,

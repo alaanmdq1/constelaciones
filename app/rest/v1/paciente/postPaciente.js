@@ -1,5 +1,5 @@
 const {Router} = require('express')
-const {pacienteSchema} = require('../../../../database/schemas/Paciente')
+const Paciente = require('../../../../database/schemas/Paciente')
 const {check, validationResult} = require('express-validator')
 
 //creando paciente
@@ -18,7 +18,7 @@ module.exports = Router().post('/rest/v1/:paciente',[
    
         const {password} = req.body
         const db = req.db
-        const usuario = new PacienteSchema ({
+        const usuario = new Paciente ({
             nombre: nombre,
             apellido: apellido,
             email: email,
@@ -40,5 +40,5 @@ module.exports = Router().post('/rest/v1/:paciente',[
     }*/
         //guarda el paciente 
         const result = await usuario.save()
-        res.status(201).end(`paciente ${paciente} registrado, ${db.Paciente}` )
+        res.status(201).send(`paciente ${paciente} registrado, ${db.Paciente}` )
 })
