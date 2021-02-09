@@ -3,20 +3,28 @@ const {Schema, model} = require('mongoose')
 const adminSchema = new Schema({
     nombre: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minLength: 3,
+        maxLength: 20
     },
     apellido: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minLength: 3,
+        maxLength: 20
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        trim: true
     },
     password: {
         type: String,
         required: true
-    }
+    },
+    
  
 }, {
     timestamps: true

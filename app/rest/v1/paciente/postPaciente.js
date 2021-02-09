@@ -24,21 +24,14 @@ module.exports = Router().post('/rest/v1/:paciente',[
             email: email,
             password: password
         })
-    /*if(!usuario.nombre){
-        res.status(400).send("Introduce un nombre")
-        return
-    }
-    if(!usuario.apellido){
-        res.status(400).send("Introduce un apellido")
-    }
-    if(!usuario.email){
-        res.status(400).send("Introduce un email")
-    }
-    if(!req.body.password || req.body.password < 5){
-        res.status(400).send("tu contraseña debe tener mas de 5 caracteres")
-        return
-    }*/
+    
         //guarda el paciente 
-        const result = await usuario.save()
-        res.status(201).send(`paciente ${paciente} registrado, ${db.Paciente}` )
+        try {
+            const result = await usuario.save()
+            res.status(201).send(`paciente ${paciente} registrado, ${db.Paciente}` )
+            console.log(result)
+        } catch (e) {
+            throw new Error(e)
+        }
+        
 })

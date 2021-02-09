@@ -25,6 +25,10 @@ module.exports = Router().post('/rest/v1/:administrador',[
         email: email,
         password: password
     })
-    const result = await usuarioAdmin.save()
-    res.status(201).end(`administrador ${administrador} registrado, ${db.Administrador}` )
+    try {
+        const result = await usuarioAdmin.save()
+        .status(201).end(`administrador ${administrador} registrado, ${db.Administrador}` )
+    } catch(e) {
+        throw new Error(e)
+    }
 })

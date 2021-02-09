@@ -5,7 +5,10 @@ const paciente = require ('./Paciente')
 const referenciaSchema = new Schema({
     nombre: {
         type: String,
-        required: true
+        required: true,
+        minLength: 3,
+        maxLength: 20
+
     },
     referencia: {
         type: String,

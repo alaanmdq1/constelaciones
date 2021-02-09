@@ -4,20 +4,30 @@ const referencia = ('./Referencia')
 const pacienteSchema = new Schema({
     nombre: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minLength: 3,
+        maxLength: 20
     },
     apellido: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minLength: 3,
+        maxLength: 20
     },
     email: {
         type: String,
-        required: true
+        required: true,
+        trim: true,
+        minLength: 6,
+        maxLength: 20
     },
     password: {
         type: String,
         required: true
     },
+    date: {type: Date.now},
     referencia: [
         {
             type: Schema.Types.ObjectId,
