@@ -3,7 +3,7 @@ const Paciente = require('../../../../database/schemas/Paciente')
 const {check, validationResult} = require('express-validator')
 
 //creando paciente
-module.exports = Router().post('/rest/v1/:paciente',[
+module.exports = Router().post('/rest/v1/paciente',[
     //chekea validacion
     check('nombre').isLength({min: 3}),
     check('apellido').isLength({min: 3}),
@@ -14,24 +14,21 @@ module.exports = Router().post('/rest/v1/:paciente',[
         if (!errors.isEmpty()){
             return res.status(422).json({errors: errors.array()})
         }
-        const {paciente} = req.params
-   
-        const {password} = req.body
-        const db = req.db
+
+        //const db = req.db
+        //creando paciente tomando sus datos
         const usuario = new Paciente ({
-            nombre: nombre,
-            apellido: apellido,
-            email: email,
-            password: password
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            email: req.body.email,
+            password: req.body.password
         })
     
         //guarda el paciente 
-        try {
-            const result = await usuario.save()
-            res.status(201).send(`paciente ${paciente} registrado, ${db.Paciente}` )
-            console.log(result)
-        } catch (e) {
-            throw new Error(e)
-        }
+        
+        const result = await usuario.save()
+        res.status(201).send(`paciente ${paciente} registrado, ${db.Paciente}` )
+        console.log(result)
+
         
 })

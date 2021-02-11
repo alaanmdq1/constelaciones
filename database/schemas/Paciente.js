@@ -27,7 +27,7 @@ const pacienteSchema = new Schema({
         type: String,
         required: true
     },
-    date: {type: Date.now},
+    date: { type: Date, default: Date.now },
     referencia: [
         {
             type: Schema.Types.ObjectId,
