@@ -1,19 +1,17 @@
 const {Router} = require('express')
-const {referenciaSchema} = require('../../../../../../database/schemas/Referencia')
+const Referencia = require('../../../../../../database/schemas/Referencia')
 
-module.exports = Router().post('/rest/v1/paciente/id/:id/referencia', async (req, res) => {
+module.exports = Router().post('/rest/v1/paciente/:id/referencia', async (req, res) => {
     const {id} = req.params
-   
-    const {referencia} = req.body
-    const db = req.db
-    const referenciaPaciente = new referenciaSchema ({
-        nombre: nombre,
-        referencia,
-        paciente: paciente
+
+    const referenciaPaciente = new Referencia ({
+        nombre: req.body.nombre,
+        referencia: req.body.referencia,
+        paciente: req.body.paciente
     })
     try {
         const result = await referenciaPaciente.save()
-        res.status(201).end(`referencia del paciente ${id} posteada, ${db.Referencia}` )
+        res.status(201).send(`referencia del paciente ${id} posteada, ${result}` )
     } catch(e) {
         throw new Error(e)
     }

@@ -3,7 +3,7 @@ const Admin = require('../../../../database/schemas/Administrador')
 const {check, validationResult} = require('express-validator')
 
 //creando administrador
-module.exports = Router().post('/rest/v1/:administrador',[
+module.exports = Router().post('/rest/v1/administrador',[
     //chekea validacion
     check('nombre').isLength({min: 3}),
     check('apellido').isLength({min: 3}),
@@ -15,19 +15,19 @@ module.exports = Router().post('/rest/v1/:administrador',[
         if (!errors.isEmpty()){
             return res.status(422).json({errors: errors.array()})
         }
-        const {administrador} = req.params
+       // const {administrador} = req.params
    
         const {password} = req.body
         const db = req.db
         const usuarioAdmin = new Admin ({
-        nombre: nombre,
-        apellido: apellido,
-        email: email,
-        password: password
+        nombre: req.body.nombre,
+        apellido: req.body.apellido,
+        email: req.body.email,
+        password: req.body.password
     })
     try {
         const result = await usuarioAdmin.save()
-        .status(201).end(`administrador ${administrador} registrado, ${db.Administrador}` )
+        .status(201).end(`administrador ${result} registrado, ${db.Administrador}` )
     } catch(e) {
         throw new Error(e)
     }

@@ -27,7 +27,7 @@ module.exports = Router().post('/rest/v1/paciente',[
         //guarda el paciente 
         
         const result = await usuario.save()
-        res.status(201).send(`paciente ${paciente} registrado, ${db.Paciente}` )
+        res.status(201).send(`paciente ${result} registrado, ${db.Paciente}` )
         console.log(result)
 
         

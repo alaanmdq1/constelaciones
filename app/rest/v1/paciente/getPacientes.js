@@ -6,5 +6,6 @@ module.exports = Router().get('/rest/v1/paciente', async (req, res) => {
         .find()
         .sort({apellido: 1})
         .select({nombre: 1, apellido: 1, email: 1})
+        .populate('Referencia', 'referencia')
     res.send(pacientes)
 })

@@ -1,5 +1,5 @@
 require('dotenv').config()
-const {PORT, MONGO_DB_URL} = process.env
+const {PORT} = process.env
 const http = require('http')
 const socketio = require('socket.io')
 const createExpressApp = require('./app/createExpressApp')
