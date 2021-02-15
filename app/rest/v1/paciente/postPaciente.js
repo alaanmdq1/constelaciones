@@ -28,8 +28,8 @@ module.exports = Router().post('/rest/v1/paciente',[
         usuario = new Paciente ({
             nombre: req.body.nombre,
             apellido: req.body.apellido,
-            email: hashPassword,
-            password: req.body.password
+            email: req.body.email,
+            password: hashPassword
         })
     
         //guarda el paciente 
