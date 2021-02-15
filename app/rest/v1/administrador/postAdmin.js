@@ -17,7 +17,7 @@ module.exports = Router().post('/rest/v1/administrador',[
         }
        // const {administrador} = req.params
    
-        const {password} = req.body
+        
         const db = req.db
         const usuarioAdmin = new Admin ({
         nombre: req.body.nombre,
@@ -27,7 +27,7 @@ module.exports = Router().post('/rest/v1/administrador',[
     })
     try {
         const result = await usuarioAdmin.save()
-        .status(201).end(`administrador ${result} registrado, ${db.Administrador}` )
+        .status(201).end(`administrador ${usuarioAdmin.nombre} registrado` )
     } catch(e) {
         throw new Error(e)
     }

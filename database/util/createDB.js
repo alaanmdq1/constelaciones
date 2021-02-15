@@ -11,7 +11,9 @@ module.exports = () => new Promise ((resolve, reject) => {
 //logica de coneccion a la data base
     
     mongoose.set('debug', true)
-    mongoose.connect(MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true})
+    mongoose.set('useCreateIndex', true)
+
+    mongoose.connect(MONGO_DB_URL, { useNewUrlParser: true, useUnifiedTopology: true, autoIndex: false})
     
     //require de los schemas 
     //funciones del paquete path que resumen el nombre los modelos llevandolos a objetos de js

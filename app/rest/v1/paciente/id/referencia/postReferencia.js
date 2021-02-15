@@ -14,7 +14,7 @@ module.exports = Router().post('/rest/v1/paciente/:id/referencia', async (req, r
     })
     try {
         const result = await referenciaPaciente.save()
-        res.status(201).send(`referencia del paciente ${id} posteada, ${result}` )
+        res.status(201).send(`referencia del paciente ${referenciaPaciente.nombre} posteada, ${referenciaPaciente.referencia}` )
     } catch(e) {
         throw new Error(e)
     }

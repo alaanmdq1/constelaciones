@@ -21,7 +21,8 @@ const pacienteSchema = new Schema({
         required: true,
         trim: true,
         minLength: 6,
-        maxLength: 20
+        maxLength: 20,
+        unique: true
     },
     password: {
         type: String,
