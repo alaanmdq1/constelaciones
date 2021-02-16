@@ -19,13 +19,13 @@ const adminSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        trim: true
+        trim: true,
         
     },
     password: {
         type: String,
         required: true
-    },
+    }
     
  
 }, {
