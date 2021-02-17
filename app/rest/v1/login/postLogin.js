@@ -3,7 +3,7 @@ const Paciente = require('../../../../database/schemas/Paciente')
 const Administrador = require('../../../../database/schemas/Administrador')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+
 
 module.exports = Router().post('/rest/v1/login',[
     //chekea validacion
@@ -27,10 +27,18 @@ module.exports = Router().post('/rest/v1/login',[
         if(!validPasswordAdmin) return res.status(400).send('E-mail o contraseña invalido')
 
         //json web token auth usuario y administrador
-        const jwtUsuario = jwt.sign({_id: usuario._id, nombre: usuario.nombre}, 'MySecretUsuario')
-        const jwtAdmin = jwt.sign({_id: administrador._id, nombre: administrador.nombre}, 'MySecretAdmin')
+        const jwtUsuario = usuario.generateJWT()
+        const jwtAdmin = administrador.generateJWT()
         
-        if(jwtUsuario) return res.send(jwtUsuario)
-        if(jwtAdmin) return res.send(jwtAdmin)
+        if(jwtUsuario) return res.header('Authorization', jwtUsuario).send({
+            _id: usuario._id,
+            nombre: usuario.nombre,
+            email: usuario.email
+        })
+        if(jwtAdmin) return res.header('Authorization', jwtAdmin).send({
+            _id: administrador._id,
+            nombre: administrador.nombre,
+            email: administrador.email
+        })
         
     })

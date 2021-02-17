@@ -1,7 +1,8 @@
 const {Router} = require('express')
-const Admin = require('../../../../database/schemas/Administrador')
+const Administrador = require('../../../../database/schemas/Administrador')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
+
 
 //creando administrador
 module.exports = Router().post('/rest/v1/administrador',[
@@ -25,7 +26,7 @@ module.exports = Router().post('/rest/v1/administrador',[
         const salt = await bcrypt.genSalt(12)
         const hashPassword = await bcrypt.hash(req.body.password, salt)
         
-        const usuarioAdmin = new Admin ({
+        const administrador = new Administrador ({
         nombre: req.body.nombre,
         apellido: req.body.apellido,
         email: req.body.email,
@@ -33,7 +34,8 @@ module.exports = Router().post('/rest/v1/administrador',[
     })
     try {
         const result = await usuarioAdmin.save()
-        .status(201).end(`administrador ${usuarioAdmin.nombre} registrado` )
+        const jwtAdmin = administrador.generateJWT()
+        res.status(201).header('Authorization', jwtAdmin).send(`administrador ${administrador.nombre} registrado` )
     } catch(e) {
         throw new Error(e)
     }

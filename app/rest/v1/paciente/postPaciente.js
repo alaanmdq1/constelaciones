@@ -3,6 +3,7 @@ const Paciente = require('../../../../database/schemas/Paciente')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
 
+
 //creando paciente
 module.exports = Router().post('/rest/v1/paciente',[
     //chekea validacion
@@ -35,7 +36,8 @@ module.exports = Router().post('/rest/v1/paciente',[
         //guarda el paciente 
         
         const result = await usuario.save()
-        res.status(201).send(`paciente ${usuario.nombre} registrado` )
+        const jwtUsuario = usuario.generateJWT()
+        res.status(201).header('Authorization', jwtUsuario).send(`paciente ${usuario.nombre} registrado` )
         
 
         

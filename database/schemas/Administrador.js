@@ -1,4 +1,9 @@
 const {Schema, model} = require('mongoose')
+const dotEnv = require('dotenv')
+const jwt = require('jsonwebtoken')
+dotEnv.config()
+
+const {SECRET_KEY_ADMIN} = process.env
 
 const adminSchema = new Schema({
     nombre: {
@@ -31,5 +36,9 @@ const adminSchema = new Schema({
 }, {
     timestamps: true
 })
+
+adminSchema.methods.generateJWT = function(){
+    return jwt.sign({_id: this._id, nombre: this.nombre}, SECRET_KEY_ADMIN)
+}
 
 module.exports = model('Administrador', adminSchema)
