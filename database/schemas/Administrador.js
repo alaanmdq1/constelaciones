@@ -30,15 +30,16 @@ const adminSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    role: String
     
  
 }, {
     timestamps: true
 })
-
+//genera el jwt
 adminSchema.methods.generateJWT = function(){
-    return jwt.sign({_id: this._id, nombre: this.nombre}, SECRET_KEY_ADMIN)
+    return jwt.sign({_id: this._id, nombre: this.nombre, role: this.role}, SECRET_KEY_ADMIN)
 }
 
 module.exports = model('Administrador', adminSchema)

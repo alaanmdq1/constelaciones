@@ -4,7 +4,7 @@ dotEnv.config()
 
 const {SECRET_KEY_PACIENTE } = process.env
 
-function authPaciente(req, res, next){
+function authUsuario(req, res, next){
     const token = req.header('Authorization')
     if(!token) return res.status(401).send('Acceso denegado, necesita un token valido')
 
@@ -17,4 +17,4 @@ function authPaciente(req, res, next){
     }
 }
 
-module.exports = authPaciente
+module.exports = authUsuario

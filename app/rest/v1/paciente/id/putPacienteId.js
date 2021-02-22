@@ -1,6 +1,9 @@
 const {Router} = require('express')
 const Paciente = require('../../../../../database/schemas/Paciente')
 const {check, validationResult} = require('express-validator')
+const authPaciente = require('../../middleware/authorizationPaciente')
+const authorize = require('../../middleware/role')
+const Role = require('../../../../helpers/role')
 
 module.exports = Router().put('/rest/v1/paciente/:id', [
     //chekea validacion
@@ -8,7 +11,7 @@ module.exports = Router().put('/rest/v1/paciente/:id', [
     check('apellido').isLength({min: 3}),
     check('email').isEmail(),
     check('password').isStrongPassword()
-], 
+], [authPaciente, authorize(Role.User)],
     async (req, res) => {
         const errors = validationResult(req)
         if (!errors.isEmpty()){

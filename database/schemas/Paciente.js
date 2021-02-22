@@ -33,6 +33,7 @@ const pacienteSchema = new Schema({
         type: String,
         required: true
     },
+    role: String,
     date: { type: Date, default: Date.now },
     referencia: [
         {
@@ -43,9 +44,13 @@ const pacienteSchema = new Schema({
 }, {
     timestamps: true
 })
-
+//genera el jwt
 pacienteSchema.methods.generateJWT = function(){
-    return jwt.sign({_id: this._id, nombre: this.nombre}, SECRET_KEY_PACIENTE)
+    return jwt.sign({
+        _id: this._id,
+        nombre: this.nombre, 
+        role: this.role
+    } , SECRET_KEY_PACIENTE)
 }
 
-module.exports = model('Paciente', pacienteSchema)
+module.exports = model('Usuario', pacienteSchema)

@@ -1,8 +1,11 @@
 const {Router} = require('express')
 const Referencia = require('../../../../../../database/schemas/Referencia')
 const Paciente = require('../../../../../../database/schemas/Paciente')
+const authPaciente = require('../../../middleware/authorizationPaciente')
+const authorize = require('../../../middleware/role')
+const Role = require('../../../../../helpers/role')
 
-module.exports = Router().post('/rest/v1/paciente/:id/referencia', async (req, res) => {
+module.exports = Router().post('/rest/v1/paciente/:id/referencia', [authPaciente, authorize([Role.User])], async (req, res) => {
     const {id} = req.params
     const paciente = await Paciente.findById(req.params.id)
     if (!paciente) return res.status(400).send('No se ha encontrado el paciente con ese ID')
