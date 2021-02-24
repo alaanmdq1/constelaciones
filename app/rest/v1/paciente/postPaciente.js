@@ -1,10 +1,11 @@
 const {Router} = require('express')
-const Paciente = require('../../../../database/schemas/Paciente')
+const Usuario = require('../../../../database/schemas/Usuario')
 const {check, validationResult} = require('express-validator')
 const bcrypt = require('bcrypt')
 
 
-//creando paciente
+
+//creando usuarios
 module.exports = Router().post('/rest/v1/paciente',[
     //chekea validacion
     check('nombre').isLength({min: 3}),
@@ -17,7 +18,7 @@ module.exports = Router().post('/rest/v1/paciente',[
             return res.status(422).json({errors: errors.array()})
         }
         //chekea si el email ya existe
-        let usuario = await Paciente.findOne({email: req.body.email})
+        let usuario = await Usuario.findOne({email: req.body.email})
         if(usuario) return res.status(400).send('Ese usuario ya existe')
         //const db = req.db
 
@@ -26,7 +27,7 @@ module.exports = Router().post('/rest/v1/paciente',[
         const hashPassword = await bcrypt.hash(req.body.password, salt)
 
         //creando paciente tomando sus datos
-        usuario = new Paciente ({
+        usuario = new Usuario ({
             nombre: req.body.nombre,
             apellido: req.body.apellido,
             email: req.body.email,

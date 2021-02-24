@@ -1,4 +1,4 @@
-const {Schema, model} = require('mongoose')
+const mongoose = require('mongoose')
 const dotEnv = require('dotenv')
 const referencia = ('./Referencia')
 const jwt = require('jsonwebtoken')
@@ -6,7 +6,7 @@ dotEnv.config()
 
 const {SECRET_KEY_PACIENTE } = process.env
 
-const pacienteSchema = new Schema({
+const usuarioSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true,
@@ -35,17 +35,16 @@ const pacienteSchema = new Schema({
     },
     role: String,
     date: { type: Date, default: Date.now },
-    referencia: [
-        {
-            type: Schema.Types.ObjectId,
-            ref: 'Referencia'
-        }
-    ]
+    referencia:  [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'referencia'
+    }]
+    
 }, {
     timestamps: true
 })
 //genera el jwt
-pacienteSchema.methods.generateJWT = function(){
+usuarioSchema.methods.generateJWT = function(){
     return jwt.sign({
         _id: this._id,
         nombre: this.nombre, 
@@ -53,4 +52,4 @@ pacienteSchema.methods.generateJWT = function(){
     } , SECRET_KEY_PACIENTE)
 }
 
-module.exports = model('Usuario', pacienteSchema)
+module.exports = mongoose.model('usuario', usuarioSchema)

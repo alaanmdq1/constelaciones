@@ -1,10 +1,11 @@
-function authorize(roles = []) {
-    if(typeof roles=== 'string'){
-        roles = [roles]
+//funcion para autorizar el rol de usuario
+function authorize(role = []) {
+    if(typeof role=== 'string'){
+        role = [role]
     }
     return [
         (req, res, next) => {
-            if(!roles.includes(req.paciente.role)) return res.status(403).send('No tienes la autorización para acceder')
+            if(!role.includes(req.usuario.role)) return res.status(403).send('No tienes la autorización para acceder')
             next()
         }
         

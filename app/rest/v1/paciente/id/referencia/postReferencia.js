@@ -1,12 +1,12 @@
 const {Router} = require('express')
 const Referencia = require('../../../../../../database/schemas/Referencia')
-const Paciente = require('../../../../../../database/schemas/Paciente')
+const Paciente = require('../../../../../../database/schemas/Usuario')
 const authPaciente = require('../../../middleware/authorizationPaciente')
 const authorize = require('../../../middleware/role')
-const Role = require('../../../../../helpers/role')
-
-module.exports = Router().post('/rest/v1/paciente/:id/referencia', [authPaciente, authorize([Role.User])], async (req, res) => {
-    const {id} = req.params
+const role = require('../../../../../helpers/role')
+//crear referencia del tablero
+module.exports = Router().post('/rest/v1/paciente/:id/referencia', [authPaciente, authorize([role.User])] , async (req, res) => {
+    
     const paciente = await Paciente.findById(req.params.id)
     if (!paciente) return res.status(400).send('No se ha encontrado el paciente con ese ID')
 
@@ -17,9 +17,9 @@ module.exports = Router().post('/rest/v1/paciente/:id/referencia', [authPaciente
     })
     try {
         const result = await referenciaPaciente.save()
-        res.status(201).send(`referencia del paciente ${referenciaPaciente.nombre} posteada, ${referenciaPaciente.referencia}` )
-    } catch(e) {
-        throw new Error(e)
+        res.status(201).send(`referencia del paciente ${req.body.nombre} ${req.params.id} posteada, ${referenciaPaciente.referencia}` )
+    } catch(error) {
+        throw new Error(error)
     }
 
 })

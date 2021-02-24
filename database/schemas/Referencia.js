@@ -1,8 +1,8 @@
 
-const {Schema, model} = require('mongoose')
-const paciente = require ('./Paciente')
+const mongoose = require('mongoose')
+const usuario = require ('./Usuario')
 
-const referenciaSchema = new Schema({
+const referenciaSchema = new mongoose.Schema({
     nombre: {
         type: String,
         required: true,
@@ -14,12 +14,12 @@ const referenciaSchema = new Schema({
         type: String,
         required: true
     },
-    paciente: {
-        type: Schema.Types.ObjectId,
-        ref: 'Paciente'
+    usuario: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'usuario'
     }
 }, {
     timestamps: true
 })
 
-module.exports = model('Referencia', referenciaSchema)
+module.exports = mongoose.model('referencia', referenciaSchema)
